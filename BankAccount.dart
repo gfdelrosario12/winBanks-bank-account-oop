@@ -1,5 +1,6 @@
 class BankAccount {
   num _masterAmount = 0;
+  var owner = true;
 
   num deposit(amountToDeposit) {
     return this._masterAmount += amountToDeposit;
