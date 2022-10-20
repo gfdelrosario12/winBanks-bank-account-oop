@@ -1,6 +1,6 @@
 class BankAccount {
   num _masterAmount = 0;
-  var owner = true;
+  var owner = false;
 
   num deposit(amountToDeposit) {
     return this._masterAmount += amountToDeposit;
@@ -12,6 +12,6 @@ class BankAccount {
     return this._masterAmount;
   }
   num transferMoney (transferAmount) {
-    return this._masterAmount - transferAmount;
+    return this._masterAmount = transferAmount - this._masterAmount;
   }
 }

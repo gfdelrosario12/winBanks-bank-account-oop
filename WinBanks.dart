@@ -8,16 +8,9 @@ class WinBanks {
   var dustin = new BankAccount();
   var will = new BankAccount();
 
-  void transferTo(bankOwner, transferPerson, transferAmount) {
-    if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
-      transferPerson.deposit(bankOwner.transferMoney(transferAmount));
-    } else {
-      print("Insufficent Balance");
-    }
-  }
-
   void userProcess (bankOwner) {
     while(bankProcess) {
+      bankOwner.owner = true;
       print("""Please select your operation below.
 D for deposit
 W for withdrawals
@@ -51,12 +44,26 @@ Input: """);
         print("Transferring to " + transferAction);
         stdout.writeln("Amount to transfer: ");
         double transferAmount = double.parse(stdin.readLineSync()!);
-        if (transferAction == "dustin" && bankOwner.owner != true) {
-          transferTo(bankOwner, dustin, transferAmount);
-        } else if (transferAction == "will" && bankOwner.owner != true) {
-          transferTo(bankOwner, will, transferAmount);
-        } else if (transferAction == "dustin" && bankOwner.owner != true) {
-          transferTo(bankOwner, dustin, transferAmount);
+        if (transferAction == "dustin" && dustin.owner == false) {
+          if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
+            dustin.deposit(transferAmount);
+          } else {
+            print("Insufficent Balance");
+          }
+        } else if (transferAction == "will" && bankOwner.owner == false) {
+          if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
+            will.deposit(transferAmount);
+          } else {
+            print("Insufficent Balance");
+          }
+        } else if (transferAction == "mike" && bankOwner.owner == true) {
+          if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
+            mike.deposit(transferAmount);
+          } else {
+            print("Insufficent Balance");
+          }
+        } else {
+          print("Either you are the owner of this bank or something is wrong");
         }
       } else if(action == "E") {
         bankProcess = false;
@@ -75,11 +82,11 @@ Input: """);
       password = password!.toLowerCase();
       bankProcess = true;
       if (username == "mike" && password == "eleven") {
-
+        userProcess(mike);
       } else if (username == "dustin" && password == "suzie") {
-
+        userProcess(dustin);
       } else if (username == "will" && password == "upsidedown") {
-
+        userProcess(will);
       }
     }
   }
