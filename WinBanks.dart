@@ -8,6 +8,23 @@ class WinBanks {
   var mike = new BankAccount();
   var dustin = new BankAccount();
   var will = new BankAccount();
+  double transferAmount = 0;
+
+  void transferMoneyToPerson(transferAction, bankOwner, transferPerson) {
+    if (transferPerson.owner == false) {
+      print("Transferring to " + transferAction);
+      stdout.write("Amount to transfer: ");
+      double transferAmount = double.parse(stdin.readLineSync()!);
+      if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
+        bankOwner.withdraw(transferAmount);
+        transferPerson.deposit(transferAmount);
+      } else {
+        print("Insufficient Balance");
+      }
+    } else {
+      print("Either you are the owner of this account and cannot transfer or something is wrong.");
+    }
+  }
 
   void userProcess (bankOwner) {
     while(bankProcess) {
@@ -38,35 +55,18 @@ E to exit""");
         print(bankOwner.checkBalance());
       } else if (action == "T") {
         print("""Whom to transfer? 
-Users: Dustin, Will""");
+Users: Dustin, Will, or Mike?""");
         stdout.write("Input: ");
         String? transferAction = stdin.readLineSync();
         transferAction = transferAction!.toLowerCase();
-        double transferAmount = 0;
-        if (transferAction == "dustin" && dustin.owner == false) {
-          print("Transferring to " + transferAction);
-          stdout.write("Amount to transfer: ");
-          double transferAmount = double.parse(stdin.readLineSync()!);
-          if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
-            bankOwner.withdraw(transferAmount);
-            dustin.deposit(transferAmount);
-          } else {
-            print("Insufficent Balance");
-          }
-        } else if (transferAction == "will" && bankOwner.owner == false) {
-          if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
-            will.deposit(transferAmount);
-          } else {
-            print("Insufficent Balance");
-          }
-        } else if (transferAction == "mike" && bankOwner.owner == false) {
-          if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
-            mike.deposit(transferAmount);
-          } else {
-            print("Insufficent Balance");
-          }
+        if (transferAction == "dustin") {
+          transferMoneyToPerson(transferAction, bankOwner, dustin);
+        } else if (transferAction == "will") {
+          transferMoneyToPerson(transferAction, bankOwner, will);
+        } else if (transferAction == "mike") {
+          transferMoneyToPerson(transferAction, bankOwner, mike);
         } else {
-          print("Either you are the owner of this bank or something is wrong");
+          print("Account not registerd or something is wrong.");
         }
       } else if(action == "E") {
         bankProcess = false;
