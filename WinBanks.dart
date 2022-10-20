@@ -3,6 +3,7 @@ import 'BankAccount.dart';
 import 'dart:convert';
 
 class WinBanks {
+  // Declaring Global Variables
   bool bankProcess = true;
   var mike = new BankAccount();
   var dustin = new BankAccount();
@@ -17,15 +18,15 @@ W for withdrawals
 C for checking your balance
 T for transferring money to another account
 E to exit""");
-      stdout.writeln("What would you like to do?: ");
+      stdout.write("What would you like to do?: ");
       String? action = stdin.readLineSync();
       action = action!.toUpperCase();
       if (action == "D") {
-        print("Enter Deposit Amount:");
+        stdout.write("Enter Deposit Amount:");
         double amountToDeposit = double.parse(stdin.readLineSync()!);
         bankOwner.deposit(amountToDeposit);
       } else if (action == "W") {
-        print("Enter amount to withdraw");
+        stdout.write("Enter amount to withdraw: ");
         double amountToWithdraw = double.parse(stdin.readLineSync()!);
         if (amountToWithdraw <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
           bankOwner.withdraw(amountToWithdraw);
@@ -36,16 +37,18 @@ E to exit""");
       } else if (action == "C") {
         print(bankOwner.checkBalance());
       } else if (action == "T") {
-        stdout.writeln("""Whom to transfer? 
-Users: Dustin, Will
-Input: """);
+        print("""Whom to transfer? 
+Users: Dustin, Will""");
+        stdout.write("Input: ");
         String? transferAction = stdin.readLineSync();
         transferAction = transferAction!.toLowerCase();
-        print("Transferring to " + transferAction);
-        stdout.writeln("Amount to transfer: ");
-        double transferAmount = double.parse(stdin.readLineSync()!);
+        double transferAmount = 0;
         if (transferAction == "dustin" && dustin.owner == false) {
+          print("Transferring to " + transferAction);
+          stdout.write("Amount to transfer: ");
+          double transferAmount = double.parse(stdin.readLineSync()!);
           if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
+            bankOwner.withdraw(transferAmount);
             dustin.deposit(transferAmount);
           } else {
             print("Insufficent Balance");
@@ -56,7 +59,7 @@ Input: """);
           } else {
             print("Insufficent Balance");
           }
-        } else if (transferAction == "mike" && bankOwner.owner == true) {
+        } else if (transferAction == "mike" && bankOwner.owner == false) {
           if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
             mike.deposit(transferAmount);
           } else {
