@@ -1,7 +1,7 @@
-// the bank account class contains the data of each registered user
+// the bank account class contains the data and processes that could be done on each registered user
 class BankAccount {
   // the master amount is the users total balance
-  num _masterAmount = 0;
+  num _masterAmount = 0; // master amount is privates since we do not allow to be directly changed on other classes, only BankAccount class methods could modify it.
   // this just tells if the user is in his account for the transferMoneyToPerson function in WinBanks.dart
   var owner = false;
 

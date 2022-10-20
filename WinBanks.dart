@@ -4,12 +4,11 @@ import 'dart:convert';
 
 class WinBanks {
   // Declaring Global Variables
-  bool bankProcess = true;
+  bool bankProcess = true; // bank process is a global variable as it will be used in two methods
   // account initializers that are instantiated from the BankAccount objects
   var mike = new BankAccount();
   var dustin = new BankAccount();
   var will = new BankAccount();
-  double transferAmount = 0;
 
   // money transfer method to shorten code
   void transferMoneyToPerson(transferAction, bankOwner, transferPerson) {
@@ -33,7 +32,7 @@ class WinBanks {
   }
   // method for the four main processes of Win Banks.
   void userProcess (bankOwner) {
-    while(bankProcess) {
+    while(this.bankProcess) {
       bankOwner.owner = true;
       print("""Please select your operation below.
 D for deposit
@@ -83,7 +82,7 @@ Users: Dustin, Will, or Mike?""");
           print("");
         }
       } else if(action == "E") {
-        bankProcess = false;
+        this.bankProcess = false;
       }
     }
   }
@@ -100,7 +99,7 @@ Users: Dustin, Will, or Mike?""");
       stdout.write("Please enter Password: ");
       num password = num.parse(stdin.readLineSync()!);
       print("");
-      bankProcess = true;
+      this.bankProcess = true;
       if (username == "mike" && password == 0001) {
         userProcess(mike);
       } else if (username == "dustin" && password == 0002) {
