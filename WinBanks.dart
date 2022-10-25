@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'BankAccount.dart';
-import 'dart:convert';
 
 class WinBanks {
   // Declaring Global Variables
-  bool bankProcess = true; // bank process is a global variable as it will be used in two methods
+  bool bankProcess =
+      true; // bank process is a global variable as it will be used in two methods
   // account initializers that are instantiated from the BankAccount objects
   var mike = new BankAccount();
   var dustin = new BankAccount();
@@ -17,7 +17,8 @@ class WinBanks {
       stdout.write("Amount to transfer: ");
       double transferAmount = double.parse(stdin.readLineSync()!);
       print("");
-      if (transferAmount <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
+      if (transferAmount <= bankOwner.checkBalance() &&
+          bankOwner.checkBalance() > 0) {
         // withdraws money from the user and deposits this money to the target person
         bankOwner.withdraw(transferAmount);
         transferPerson.deposit(transferAmount);
@@ -26,13 +27,15 @@ class WinBanks {
         print("");
       }
     } else {
-      print("Either you are the owner of this account and cannot transfer or something is wrong.");
+      print(
+          "Either you are the owner of this account and cannot transfer or something is wrong.");
       print("");
     }
   }
+
   // method for the four main processes of Win Banks.
-  void userProcess (bankOwner) {
-    while(this.bankProcess) {
+  void userProcess(bankOwner) {
+    while (this.bankProcess) {
       bankOwner.owner = true;
       print("""Please select your operation below.
 D for deposit
@@ -51,10 +54,12 @@ E to exit""");
         // deposit method for the bank owner from the BankAccount class
         bankOwner.deposit(amountToDeposit);
         print("");
-      } else if (action == "W") { // withdraw
+      } else if (action == "W") {
+        // withdraw
         stdout.write("Enter amount to withdraw: ");
         double amountToWithdraw = double.parse(stdin.readLineSync()!);
-        if (amountToWithdraw <= bankOwner.checkBalance() && bankOwner.checkBalance() > 0) {
+        if (amountToWithdraw <= bankOwner.checkBalance() &&
+            bankOwner.checkBalance() > 0) {
           // withdraws money from the users balance
           bankOwner.withdraw(amountToWithdraw);
         } else {
@@ -65,7 +70,7 @@ E to exit""");
         print(bankOwner.checkBalance());
       } else if (action == "T") {
         print("""Whom to transfer? 
-Users: Dustin, Will, or Mike?""");
+Users: dustin, will, or mike?""");
         stdout.write("Input: ");
         String? transferAction = stdin.readLineSync();
         transferAction = transferAction!.toLowerCase();
@@ -78,10 +83,10 @@ Users: Dustin, Will, or Mike?""");
         } else if (transferAction == "mike") {
           transferMoneyToPerson(transferAction, bankOwner, mike);
         } else {
-          print("Account not registerd or something is wrong.");
+          print("Account not registered or something is wrong.");
           print("");
         }
-      } else if(action == "E") {
+      } else if (action == "E") {
         this.bankProcess = false;
       }
     }
@@ -90,7 +95,7 @@ Users: Dustin, Will, or Mike?""");
   // bank process method of Win Banks
   void bankProcessFunction() {
     bool mainProcess = true;
-    while(mainProcess) {
+    while (mainProcess) {
       // User Login
       print("Welcome to Win Banks!");
       stdout.write("Please enter your username: ");
@@ -107,6 +112,7 @@ Users: Dustin, Will, or Mike?""");
       } else if (username == "will" && password == 0003) {
         userProcess(will);
       } else if ((username == "E" || username == "e") && password == 0000) {
+        print("Exit codes initialized. Exiting WinBanks");
         mainProcess = false;
       } else {
         print("Incorrect username and password or user does not exist.");
